@@ -1,0 +1,565 @@
+{
+  "prompt_id": "b5e3799c-4c6c-4636-96c6-256e34997159",
+  "status": "PASS",
+  "api": "http://127.0.0.1:8188",
+  "args": {
+    "video": null,
+    "prompt_id": "b5e3799c-4c6c-4636-96c6-256e34997159",
+    "api": "http://127.0.0.1:8188",
+    "sample_step": 2,
+    "detect_scale_factor": 1.08,
+    "detect_min_neighbors": 6,
+    "max_overlap_iou": 0.42,
+    "max_no_face_ratio": 0.2,
+    "max_multi_face_ratio": 0.1,
+    "max_face_drift_ratio": 0.12,
+    "min_face_area_ratio": 0.003,
+    "min_face_size_ratio": 0.001,
+    "min_detected_ratio": 0.75,
+    "min_mean_similarity": 0.55,
+    "min_mean_sharpness": 35.0,
+    "min_continuity_similarity": 0.45,
+    "max_face_switch_ratio": 0.12,
+    "max_face_jump_ratio": 0.16,
+    "check_gender": true,
+    "gender_prototxt": "/workspace/ai_coding_ws/stock-video-gender-convert/scripts/models/gender/gender_net_deploy.prototxt",
+    "gender_caffemodel": "/workspace/ai_coding_ws/stock-video-gender-convert/scripts/models/gender/gender_net.caffemodel",
+    "gender_prototxt_url": "https://raw.githubusercontent.com/GilLevi/AgeGenderDeepLearning/master/gender_net_definitions/deploy.prototxt",
+    "gender_caffemodel_url": "https://raw.githubusercontent.com/GilLevi/AgeGenderDeepLearning/master/models/gender_net.caffemodel",
+    "gender_mean_bgr": [
+      78.4263377603,
+      87.7689143744,
+      114.895847746
+    ],
+    "gender_female_min_ratio": 0.25,
+    "gender_female_confidence_threshold": 0.25,
+    "min_gender_frames": 4,
+    "face_strip_path": "/tmp/pass1_recipe_search/female_balanced_faces.jpg",
+    "max_face_strip_faces": 12,
+    "include_frame_debug": true,
+    "max_frame_debug_entries": 32,
+    "output_json": "/tmp/pass1_recipe_search/female_balanced_report.json",
+    "fail_on_issue": false
+  },
+  "metrics": {
+    "detected_ratio": 1.0,
+    "no_face_ratio": 0.0,
+    "multi_face_ratio": 0.03125,
+    "drift_px_mean": 6.75490707200592,
+    "drift_px_p95": 12.98075498574717,
+    "drift_ratio_mean": 0.004714245682148711,
+    "drift_ratio_p95": 0.009059261288167033,
+    "face_area_ratio_mean": 0.06283878779911495,
+    "face_area_ratio_std": 0.007774584934738187,
+    "face_similarity_mean": 0.9809366133018154,
+    "face_sharpness_mean": 63.471561729900145,
+    "face_switch_ratio": 0.0,
+    "gender_female_ratio": 1.0,
+    "gender_female_prob_mean": 0.91713285835934
+  },
+  "frame_summary": {
+    "sampled": 32,
+    "faces_detected": 32,
+    "no_face_frames": 0,
+    "multi_face_frames": 1,
+    "faces_too_small": 0,
+    "face_switch_count": 0,
+    "gender_evaluated_frames": 32
+  },
+  "checks": {
+    "detected_ratio": {
+      "value": 1.0,
+      "ok": true,
+      "min": 0.75,
+      "max": 1.0
+    },
+    "no_face_ratio": {
+      "value": 0.0,
+      "ok": true,
+      "min": 0.0,
+      "max": 0.2
+    },
+    "multi_face_ratio": {
+      "value": 0.03125,
+      "ok": true,
+      "min": 0.0,
+      "max": 0.1
+    },
+    "drift_ratio_mean": {
+      "value": 0.004714245682148711,
+      "ok": true,
+      "min": 0.0,
+      "max": 0.12
+    },
+    "drift_ratio_p95": {
+      "value": 0.009059261288167033,
+      "ok": true,
+      "min": 0.0,
+      "max": 0.18
+    },
+    "face_switch_ratio": {
+      "value": 0.0,
+      "ok": true,
+      "min": 0.0,
+      "max": 0.12
+    },
+    "face_area_ratio_mean": {
+      "value": 0.06283878779911495,
+      "ok": true,
+      "min": 0.003,
+      "max": 1.0
+    },
+    "face_similarity_mean": {
+      "value": 0.9809366133018154,
+      "ok": true,
+      "min": 0.55,
+      "max": 1.0
+    },
+    "face_sharpness_mean": {
+      "value": 63.471561729900145,
+      "ok": true,
+      "min": 35.0,
+      "max": Infinity
+    },
+    "gender_female_ratio": {
+      "value": 1.0,
+      "ok": true,
+      "min": 0.25,
+      "max": 1.0
+    },
+    "gender_female_prob_mean": {
+      "value": 0.91713285835934,
+      "ok": true,
+      "min": 0.25,
+      "max": 1.0
+    },
+    "gender_evaluated_frames": {
+      "value": 32,
+      "ok": true,
+      "min": 4,
+      "max": Infinity
+    }
+  },
+  "issues": [],
+  "frame_debug": [
+    {
+      "frame_idx": 0,
+      "bbox": [
+        131,
+        432,
+        251,
+        251
+      ],
+      "face_area_ratio": 0.07170677629662005,
+      "sharpness": 31.95458344886139,
+      "similarity_to_prev": null,
+      "female_prob": 0.9968197452495127
+    },
+    {
+      "frame_idx": 2,
+      "bbox": [
+        154,
+        440,
+        238,
+        238
+      ],
+      "face_area_ratio": 0.06447133595571096,
+      "sharpness": 53.40474762465498,
+      "similarity_to_prev": 0.9662465345359957,
+      "female_prob": 0.9291106558673572
+    },
+    {
+      "frame_idx": 4,
+      "bbox": [
+        148,
+        442,
+        234,
+        234
+      ],
+      "face_area_ratio": 0.062322443181818184,
+      "sharpness": 76.82593521463868,
+      "similarity_to_prev": 0.9820731716016676,
+      "female_prob": 0.9396108423903988
+    },
+    {
+      "frame_idx": 6,
+      "bbox": [
+        156,
+        447,
+        219,
+        219
+      ],
+      "face_area_ratio": 0.05458847792832168,
+      "sharpness": 56.913799543229494,
+      "similarity_to_prev": 0.9866988658208381,
+      "female_prob": 0.6111671560307053
+    },
+    {
+      "frame_idx": 8,
+      "bbox": [
+        153,
+        444,
+        232,
+        232
+      ],
+      "face_area_ratio": 0.06126165501165501,
+      "sharpness": 46.37263327800408,
+      "similarity_to_prev": 0.9875507532784866,
+      "female_prob": 0.911805934546932
+    },
+    {
+      "frame_idx": 10,
+      "bbox": [
+        127,
+        434,
+        259,
+        259
+      ],
+      "face_area_ratio": 0.07635057000291376,
+      "sharpness": 50.71307195245333,
+      "similarity_to_prev": 0.9694413206459054,
+      "female_prob": 0.9958030080670841
+    },
+    {
+      "frame_idx": 12,
+      "bbox": [
+        142,
+        429,
+        251,
+        251
+      ],
+      "face_area_ratio": 0.07170677629662005,
+      "sharpness": 43.93503048783661,
+      "similarity_to_prev": 0.9769586798797337,
+      "female_prob": 0.8860172033309937
+    },
+    {
+      "frame_idx": 14,
+      "bbox": [
+        157,
+        451,
+        222,
+        222
+      ],
+      "face_area_ratio": 0.05609429632867133,
+      "sharpness": 81.0597950015375,
+      "similarity_to_prev": 0.9795198943164889,
+      "female_prob": 0.8975100717882083
+    },
+    {
+      "frame_idx": 16,
+      "bbox": [
+        145,
+        438,
+        243,
+        243
+      ],
+      "face_area_ratio": 0.06720867023601398,
+      "sharpness": 74.52554669611187,
+      "similarity_to_prev": 0.9840739608113466,
+      "female_prob": 0.9318333754154565
+    },
+    {
+      "frame_idx": 18,
+      "bbox": [
+        164,
+        453,
+        214,
+        214
+      ],
+      "face_area_ratio": 0.052124307983682984,
+      "sharpness": 76.46101670837021,
+      "similarity_to_prev": 0.9665584600874664,
+      "female_prob": 0.5158173153291533
+    },
+    {
+      "frame_idx": 20,
+      "bbox": [
+        157,
+        441,
+        227,
+        227
+      ],
+      "face_area_ratio": 0.0586495210518648,
+      "sharpness": 78.40899799680129,
+      "similarity_to_prev": 0.9814603927125385,
+      "female_prob": 0.9929844916944373
+    },
+    {
+      "frame_idx": 22,
+      "bbox": [
+        155,
+        449,
+        222,
+        222
+      ],
+      "face_area_ratio": 0.05609429632867133,
+      "sharpness": 102.03456238362159,
+      "similarity_to_prev": 0.9853627173142542,
+      "female_prob": 0.9825439902760984
+    },
+    {
+      "frame_idx": 24,
+      "bbox": [
+        146,
+        445,
+        235,
+        235
+      ],
+      "face_area_ratio": 0.06285625182109557,
+      "sharpness": 83.98227221820444,
+      "similarity_to_prev": 0.9837209490490436,
+      "female_prob": 0.9872028415501647
+    },
+    {
+      "frame_idx": 26,
+      "bbox": [
+        150,
+        443,
+        226,
+        226
+      ],
+      "face_area_ratio": 0.05813392336829837,
+      "sharpness": 65.12279380130539,
+      "similarity_to_prev": 0.9888242089881296,
+      "female_prob": 0.9922049886485862
+    },
+    {
+      "frame_idx": 28,
+      "bbox": [
+        123,
+        426,
+        259,
+        259
+      ],
+      "face_area_ratio": 0.07635057000291376,
+      "sharpness": 47.78198028789986,
+      "similarity_to_prev": 0.9781037472816946,
+      "female_prob": 0.9932654698282338
+    },
+    {
+      "frame_idx": 30,
+      "bbox": [
+        132,
+        425,
+        263,
+        263
+      ],
+      "face_area_ratio": 0.07872709972319347,
+      "sharpness": 49.39829132809233,
+      "similarity_to_prev": 0.9884235330161476,
+      "female_prob": 0.9467654471559284
+    },
+    {
+      "frame_idx": 32,
+      "bbox": [
+        160,
+        447,
+        217,
+        217
+      ],
+      "face_area_ratio": 0.05359598084207459,
+      "sharpness": 87.18592407401187,
+      "similarity_to_prev": 0.9672941259071031,
+      "female_prob": 0.5289608397770178
+    },
+    {
+      "frame_idx": 34,
+      "bbox": [
+        156,
+        450,
+        224,
+        224
+      ],
+      "face_area_ratio": 0.05710955710955711,
+      "sharpness": 51.310583594837375,
+      "similarity_to_prev": 0.9820538168162486,
+      "female_prob": 0.99854665308792
+    },
+    {
+      "frame_idx": 36,
+      "bbox": [
+        149,
+        442,
+        230,
+        230
+      ],
+      "face_area_ratio": 0.06020997231934732,
+      "sharpness": 44.96798070154124,
+      "similarity_to_prev": 0.9890082972144127,
+      "female_prob": 0.986405158086246
+    },
+    {
+      "frame_idx": 38,
+      "bbox": [
+        146,
+        443,
+        239,
+        239
+      ],
+      "face_area_ratio": 0.06501425007284382,
+      "sharpness": 66.4055318026847,
+      "similarity_to_prev": 0.9908946613456964,
+      "female_prob": 0.9628560722406222
+    },
+    {
+      "frame_idx": 40,
+      "bbox": [
+        157,
+        448,
+        224,
+        224
+      ],
+      "face_area_ratio": 0.05710955710955711,
+      "sharpness": 60.13488751379265,
+      "similarity_to_prev": 0.9834093989541283,
+      "female_prob": 0.9202806743916718
+    },
+    {
+      "frame_idx": 42,
+      "bbox": [
+        153,
+        439,
+        237,
+        237
+      ],
+      "face_area_ratio": 0.06393069820804195,
+      "sharpness": 49.12095400479271,
+      "similarity_to_prev": 0.9901764692741374,
+      "female_prob": 0.9379759955020246
+    },
+    {
+      "frame_idx": 44,
+      "bbox": [
+        158,
+        446,
+        224,
+        224
+      ],
+      "face_area_ratio": 0.05710955710955711,
+      "sharpness": 51.79852296828428,
+      "similarity_to_prev": 0.9930900923961037,
+      "female_prob": 0.9151199187302613
+    },
+    {
+      "frame_idx": 46,
+      "bbox": [
+        158,
+        443,
+        218,
+        218
+      ],
+      "face_area_ratio": 0.0540910912004662,
+      "sharpness": 93.8921593629999,
+      "similarity_to_prev": 0.9820306849378845,
+      "female_prob": 0.978561357622086
+    },
+    {
+      "frame_idx": 48,
+      "bbox": [
+        141,
+        435,
+        254,
+        254
+      ],
+      "face_area_ratio": 0.07343112616550117,
+      "sharpness": 53.18302326545908,
+      "similarity_to_prev": 0.9854359482380575,
+      "female_prob": 0.985374300272459
+    },
+    {
+      "frame_idx": 50,
+      "bbox": [
+        161,
+        446,
+        218,
+        218
+      ],
+      "face_area_ratio": 0.0540910912004662,
+      "sharpness": 79.91421665659134,
+      "similarity_to_prev": 0.9777494758626489,
+      "female_prob": 0.7027025996027827
+    },
+    {
+      "frame_idx": 52,
+      "bbox": [
+        153,
+        441,
+        231,
+        231
+      ],
+      "face_area_ratio": 0.06073467548076923,
+      "sharpness": 59.42289012109741,
+      "similarity_to_prev": 0.9890836992157463,
+      "female_prob": 0.9889792949960781
+    },
+    {
+      "frame_idx": 54,
+      "bbox": [
+        132,
+        430,
+        261,
+        261
+      ],
+      "face_area_ratio": 0.07753428212412587,
+      "sharpness": 71.42517157237629,
+      "similarity_to_prev": 0.9689381487889274,
+      "female_prob": 0.9930417098389183
+    },
+    {
+      "frame_idx": 56,
+      "bbox": [
+        155,
+        444,
+        221,
+        221
+      ],
+      "face_area_ratio": 0.05559008049242424,
+      "sharpness": 62.95385061222087,
+      "similarity_to_prev": 0.9596806253904748,
+      "female_prob": 0.9644617998433791
+    },
+    {
+      "frame_idx": 58,
+      "bbox": [
+        154,
+        443,
+        227,
+        227
+      ],
+      "face_area_ratio": 0.0586495210518648,
+      "sharpness": 60.15503020921281,
+      "similarity_to_prev": 0.9868960922106281,
+      "female_prob": 0.9865024852377421
+    },
+    {
+      "frame_idx": 60,
+      "bbox": [
+        134,
+        428,
+        250,
+        250
+      ],
+      "face_area_ratio": 0.07113654574592075,
+      "sharpness": 63.7744420544,
+      "similarity_to_prev": 0.9726346180705738,
+      "female_prob": 0.9976347217977561
+    },
+    {
+      "frame_idx": 62,
+      "bbox": [
+        147,
+        437,
+        235,
+        235
+      ],
+      "face_area_ratio": 0.06285625182109557,
+      "sharpness": 56.549748870879064,
+      "similarity_to_prev": 0.9856416683937668,
+      "female_prob": 0.9903853493026653
+    }
+  ],
+  "artifacts": {
+    "face_strip_path": "/tmp/pass1_recipe_search/female_balanced_faces.jpg"
+  }
+}

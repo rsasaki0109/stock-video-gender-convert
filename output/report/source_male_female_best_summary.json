@@ -1,0 +1,23 @@
+{
+  "prompt_id": "d181bcea-0af7-4657-886e-2451752901c3",
+  "status": "PASS",
+  "selected_width": 704,
+  "selected_height": 1248,
+  "source_video": "/workspace/ai_coding_ws/ComfyUI/input/source_male.mp4",
+  "ref_image": "/workspace/ai_coding_ws/stock-video-gender-convert/output/reference/pass1_best_ref.jpg",
+  "auto_gate_passed": true,
+  "gpt_review_required": false,
+  "final_decision": "approved_gpt_review",
+  "gpt_review_verdict": "PASS",
+  "female_ratio": 0.96875,
+  "female_prob_mean": 0.9020159327312035,
+  "face_similarity_mean": 0.9802743972456798,
+  "face_switch_ratio": 0.0,
+  "issues": [],
+  "thresholds": {
+    "female_ratio_min": 0.7,
+    "female_prob_mean_min": 0.55,
+    "face_switch_ratio_max": 0.0,
+    "face_similarity_mean_min": 0.95
+  }
+}

@@ -19,7 +19,7 @@ Convert stock-footage people videos with a stable male/female look using ComfyUI
 - SDXL photoreal checkpoint
 - OpenPose ControlNet model for SDXL
 - `ip-adapter-plus-face_sdxl_vit-h.safetensors`
-- CLIP Vision ViT-H
+- CLIP Vision `CLIP-ViT-H-14-laion2B-s32B-b79K.safetensors` (name must match IPAdapter Unified Loader preset)
 
 ## Input files
 - Source video: `input/source.mp4`
@@ -29,16 +29,16 @@ Convert stock-footage people videos with a stable male/female look using ComfyUI
 Connect nodes in this order:
 
 1. `VHS_LoadVideo`
-2. `Resize Image` (start with `720x1280`)
-3. `DW/OpenPose Preprocessor`
-4. `Load ControlNet Model (OpenPose SDXL)`
-5. `Apply ControlNet`
+2. `ResizeAndPadImage` (start with `832x1472`, black padding)
+3. `OpenPose Pose` (`OpenposePreprocessor`)
+4. `ACN_ControlNetLoaderAdvanced` (`cnet: controlnet-openpose-sdxl.safetensors`)
+5. `ACN_AdvancedControlNetApply_v2` (`positive/negative`: openpose conditioning)
 6. `Load Checkpoint (SDXL)`
 7. `CLIP Text Encode (positive)`
 8. `CLIP Text Encode (negative)`
-9. `Load CLIP Vision`
-10. `Load IPAdapter Model`
-11. `IPAdapter Apply` (use `ref_face.jpg`)
+9. `IPAdapter Unified Loader` (`model`: checkpoint, `preset`: PLUS FACE (portraits))
+10. `LoadImage` (`ref_face.jpg`)
+11. `IPAdapter` (`image`: ref_face.jpg)
 12. `VAE Encode`
 13. `KSampler (img2img)`
 14. `VAE Decode`
@@ -53,6 +53,26 @@ Recommended values (12GB VRAM):
 - `controlnet weight`: 0.70-0.90
 - `ipadapter weight`: 0.55-0.75
 - `fps`: same as source
+
+## Pass 1品質ゲート（生成後）
+- 生成完了後は必ず以下を確認する:
+  1. 顔トラッキングの抜けがないか
+  2. フレーム間の顔位置ジャンプが大きくないか
+  3. フェイス領域のノイズ/ぼやけが極端でないか
+  4. メイン人物が女性判定される比率（`gender_female_ratio`) が閾値以上か
+
+- 自動チェック（推奨）:
+  - `bash scripts/run_pass1_with_quality_gate.sh <payload_json>`
+  - 監視〜実行後、`/tmp/pass1_quality_<prompt_id>.json` に結果を保存
+- 失敗条件: `status: FAIL` または `issues` に項目がある場合
+  - 性別チェックが入る場合、`issues` に `gender_female_ratio` または `gender_female_prob_mean` があると `FAIL` 扱い
+  - 旧動画は `COMFY_OUTPUT_DIR` を指定して退避先を制御（未指定時は `ComfyUI/output/old`）
+- 再試行まで含めた実行:
+  - `PASS1_QC_MAX_ATTEMPTS=5 PASS1_QC_BASE_SEED=1337 PASS1_QC_SEED_STEP=97 bash scripts/run_pass1_with_quality_gate.sh <payload_json>`
+  - 2回目以降は同一ワークフローの `seed` を変えて再生成し、`PASS` を目指す
+  - 再試行時、`multi_face_ratio`/`no_face_ratio`/`face_switch_ratio` の失敗内容を見て、顔検出の設定を自動で強化/緩和します
+  - フェイス連続性を強める場合:
+    - `PASS1_QC_CHECK_ARGS='--detect-scale-factor 1.08 --detect-min-neighbors 6 --max-overlap-iou 0.42 --max-face-switch-ratio 0.10' PASS1_QC_MAX_ATTEMPTS=5 PASS1_QC_BASE_SEED=1337 bash scripts/run_pass1_with_quality_gate.sh <payload_json>`
 
 ## Pass 2: Artifact fix (only if needed)
 Use when mouth, eyes, or hands break.

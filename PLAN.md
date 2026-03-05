@@ -18,14 +18,14 @@ Build a repeatable workflow to convert stock-footage people videos with AI gende
 
 ## Tasks
 1. Environment setup
-- [ ] Install ComfyUI on 16GB PC
-- [ ] Install required custom nodes
-- [ ] Place required SDXL/ControlNet/IPAdapter models
-- [ ] Verify GPU with `nvidia-smi`
+- [x] Install ComfyUI on 16GB PC
+- [x] Install required custom nodes
+- [x] Place required SDXL/ControlNet/IPAdapter models
+- [x] Verify GPU with `nvidia-smi`
 
 2. Workflow baseline
-- [ ] Import runbook settings from `comfyui_gender_swap_runbook.md`
-- [ ] Configure Pass 1 pipeline (pose lock + IPAdapter)
+- [x] Import runbook settings from `comfyui_gender_swap_runbook.md`
+- [x] Configure Pass 1 pipeline (pose lock + IPAdapter)
 - [ ] Run first clip at `832x1472`, `steps 24`
 
 3. Quality tuning
@@ -47,4 +47,3 @@ Build a repeatable workflow to convert stock-footage people videos with AI gende
 - 3 clips produced with stable faces and no major mouth/hand artifacts.
 - One reusable ComfyUI preset exported.
 - Upload checklist completed for each clip.
-

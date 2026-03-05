@@ -1,0 +1,183 @@
+{
+  "status": "FAIL",
+  "video": "/workspace/ai_coding_ws/ComfyUI/input/source_female_backup.mp4",
+  "metrics": {
+    "sampled_frames": 12,
+    "detected_frames": 12,
+    "detected_ratio": 1.0,
+    "mean_face_area_ratio": 0.0028542550797325105,
+    "max_face_area_ratio": 0.003566743827160494,
+    "eye_detected_ratio": 0.0,
+    "mean_face_sharpness": 673.2745060490945
+  },
+  "thresholds": {
+    "min_detected_ratio": 0.6,
+    "min_mean_face_area_ratio": 0.015,
+    "min_max_face_area_ratio": 0.025,
+    "min_eye_detected_ratio": 0.35,
+    "min_mean_face_sharpness": 15.0
+  },
+  "issues": [
+    "mean_face_area_ratio too low: 0.0029",
+    "max_face_area_ratio too low: 0.0036",
+    "eye_detected_ratio too low: 0.000"
+  ],
+  "frame_debug": [
+    {
+      "frame_idx": 0,
+      "detected": true,
+      "bbox": [
+        530,
+        245,
+        78,
+        78
+      ],
+      "face_area_ratio": 0.0029340277777777776,
+      "eye_detected": false,
+      "face_sharpness": 945.0732414399157
+    },
+    {
+      "frame_idx": 15,
+      "detected": true,
+      "bbox": [
+        516,
+        242,
+        75,
+        75
+      ],
+      "face_area_ratio": 0.002712673611111111,
+      "eye_detected": false,
+      "face_sharpness": 600.6396481106173
+    },
+    {
+      "frame_idx": 31,
+      "detected": true,
+      "bbox": [
+        499,
+        244,
+        81,
+        81
+      ],
+      "face_area_ratio": 0.0031640625,
+      "eye_detected": false,
+      "face_sharpness": 598.635291919215
+    },
+    {
+      "frame_idx": 46,
+      "detected": true,
+      "bbox": [
+        524,
+        247,
+        86,
+        86
+      ],
+      "face_area_ratio": 0.003566743827160494,
+      "eye_detected": false,
+      "face_sharpness": 595.8157479040167
+    },
+    {
+      "frame_idx": 62,
+      "detected": true,
+      "bbox": [
+        550,
+        246,
+        79,
+        79
+      ],
+      "face_area_ratio": 0.003009741512345679,
+      "eye_detected": false,
+      "face_sharpness": 657.5108702341339
+    },
+    {
+      "frame_idx": 77,
+      "detected": true,
+      "bbox": [
+        569,
+        251,
+        79,
+        79
+      ],
+      "face_area_ratio": 0.003009741512345679,
+      "eye_detected": false,
+      "face_sharpness": 697.8957095878696
+    },
+    {
+      "frame_idx": 93,
+      "detected": true,
+      "bbox": [
+        1804,
+        337,
+        65,
+        65
+      ],
+      "face_area_ratio": 0.0020375192901234567,
+      "eye_detected": false,
+      "face_sharpness": 845.2830376527432
+    },
+    {
+      "frame_idx": 108,
+      "detected": true,
+      "bbox": [
+        598,
+        257,
+        84,
+        84
+      ],
+      "face_area_ratio": 0.0034027777777777776,
+      "eye_detected": false,
+      "face_sharpness": 569.3751820349738
+    },
+    {
+      "frame_idx": 124,
+      "detected": true,
+      "bbox": [
+        610,
+        265,
+        81,
+        81
+      ],
+      "face_area_ratio": 0.0031640625,
+      "eye_detected": false,
+      "face_sharpness": 654.7862463670577
+    },
+    {
+      "frame_idx": 139,
+      "detected": true,
+      "bbox": [
+        615,
+        276,
+        80,
+        80
+      ],
+      "face_area_ratio": 0.0030864197530864196,
+      "eye_detected": false,
+      "face_sharpness": 540.604443359375
+    },
+    {
+      "frame_idx": 155,
+      "detected": true,
+      "bbox": [
+        626,
+        294,
+        77,
+        77
+      ],
+      "face_area_ratio": 0.0028592785493827162,
+      "eye_detected": false,
+      "face_sharpness": 601.5482667345906
+    },
+    {
+      "frame_idx": 170,
+      "detected": true,
+      "bbox": [
+        1142,
+        138,
+        52,
+        52
+      ],
+      "face_area_ratio": 0.0013040123456790123,
+      "eye_detected": false,
+      "face_sharpness": 772.1263872446254
+    }
+  ]
+}

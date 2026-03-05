@@ -1,0 +1,17 @@
+{
+  "status": "COMPLETED_GPT_REVIEW",
+  "review_mode": "gpt_review",
+  "verdict": "PASS",
+  "confidence": 0.81,
+  "review_target": "/workspace/ai_coding_ws/stock-video-gender-convert/output/review/pass1_best_review_board.jpg",
+  "reasons": [
+    "The output keeps a visibly feminine presentation across the sampled frames.",
+    "Frame-to-frame identity remains stable and there is no obvious face switching.",
+    "The previous regression toward the original male-looking reference is largely corrected."
+  ],
+  "caveats": [
+    "The result is still stylized and not perfectly natural in every frame.",
+    "The fix depends on the bootstrap female reference image rather than the original default ref_face.jpg."
+  ],
+  "next_action": "Use this candidate as the new working baseline and replace the old male reference in the generation path."
+}

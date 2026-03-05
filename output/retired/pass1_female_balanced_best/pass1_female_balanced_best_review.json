@@ -1,0 +1,30 @@
+{
+  "status": "PENDING_GPT_REVIEW",
+  "review_mode": "gpt_review",
+  "purpose": "Review whether the output clearly achieves the requested feminine presentation without identity drift.",
+  "note": "This review is about visual transformation quality. Do not use it to infer or label a person's gender identity.",
+  "artifacts": {
+    "review_board": "/workspace/ai_coding_ws/stock-video-gender-convert/output/review/pass1_female_balanced_best_review_board.jpg",
+    "video": "/workspace/ai_coding_ws/stock-video-gender-convert/output/video/pass1_female_balanced_best.mp4",
+    "source_video": null,
+    "ref_image": null,
+    "faces_image": "/workspace/ai_coding_ws/stock-video-gender-convert/output/faces/pass1_female_balanced_best_faces.jpg",
+    "report_json": "/workspace/ai_coding_ws/stock-video-gender-convert/output/report/pass1_female_balanced_best_report.json"
+  },
+  "auto_metrics": {
+    "gender_female_ratio": 1.0,
+    "gender_female_prob_mean": 0.91713285835934,
+    "face_similarity_mean": 0.9809366133018154,
+    "face_switch_ratio": 0.0
+  },
+  "gpt_review_checklist": [
+    "Across sampled frames, the subject looks clearly transformed toward the requested feminine presentation, not just slightly softened.",
+    "There is no obvious beard, stubble, heavy brow, or strongly masculine jaw reversion in the sampled frames.",
+    "The face remains visually consistent from frame to frame.",
+    "No sampled frame looks like a different person or a broken face blend."
+  ],
+  "gpt_review_output_contract": {
+    "allowed_values": ["PASS", "FAIL"],
+    "required_fields": ["verdict", "confidence", "reasons"]
+  }
+}
