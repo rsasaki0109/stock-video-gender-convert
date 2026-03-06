@@ -1,0 +1,15 @@
+{
+  "status": "RETIRED",
+  "artifact_family": "pass1_female_balanced_best",
+  "replacement": "/media/sasaki/aiueo/ai_coding_ws/stock-video-gender-convert/output/video/pass1_best.mp4",
+  "replacement_summary": "/media/sasaki/aiueo/ai_coding_ws/stock-video-gender-convert/output/report/pass1_best_summary.json",
+  "reason": [
+    "Auto metrics overstated success relative to the visible output.",
+    "GPT review on the review board found repeated regression toward a male-looking face.",
+    "A later candidate with a corrected female reference image passed GPT review and replaced this output."
+  ],
+  "do_not_use_for_generation": true,
+  "do_not_use_as_baseline": true,
+  "superseded_by": "pass1_best",
+  "date_retired": "2026-03-06"
+}

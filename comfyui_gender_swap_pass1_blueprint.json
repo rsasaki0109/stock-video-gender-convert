@@ -1,0 +1,239 @@
+{
+  "blueprint_name": "gender_swap_pass1_16gb",
+  "note": "Template blueprint (ComfyUI import requires manual node placement/export). Parameters are tuned to 16GB profile defaults.",
+  "settings": {
+    "resolution": {
+      "width": 832,
+      "height": 1472
+    },
+    "steps": 24,
+    "sampler": "dpmpp_2m_sde",
+    "scheduler": "karras",
+    "cfg": 4.5,
+    "denoise": 0.48,
+    "controlnet_weight": 0.82,
+    "ipadapter_weight": 0.68,
+    "fps": 24
+  },
+  "nodes": [
+    {
+      "id": "N1",
+      "type": "custom",
+      "class_type": "VHS_LoadVideoPath",
+      "description": "Input clip loader",
+      "inputs": {
+        "video": "input/source.mp4"
+      },
+      "outputs": [
+        "images",
+        "frame_count",
+        "audio",
+        "meta"
+      ]
+    },
+    {
+      "id": "N2",
+      "type": "builtin",
+      "class_type": "ResizeAndPadImage",
+      "description": "Normalize to 16:9 compatible portrait aspect",
+      "inputs": {
+        "image": "N1.images",
+        "target_width": 832,
+        "target_height": 1472,
+        "padding_color": "black",
+        "interpolation": "lanczos"
+      },
+      "outputs": ["images"]
+    },
+    {
+      "id": "N3",
+      "type": "custom",
+      "class_type": "OpenposePreprocessor",
+      "description": "OpenPose control signal for pose lock",
+      "required": "Install OpenPose preprocessor node pack if missing",
+      "inputs": {
+        "image": "N2.images"
+      },
+      "outputs": ["image"]
+    },
+    {
+      "id": "N4",
+      "type": "custom",
+      "class_type": "ACN_ControlNetLoaderAdvanced",
+      "description": "Load OpenPose ControlNet SDXL model",
+      "inputs": {
+        "cnet": "controlnet-openpose-sdxl.safetensors"
+      },
+      "outputs": ["controlnet"]
+    },
+    {
+      "id": "N6",
+      "type": "builtin",
+      "class_type": "CheckpointLoaderSimple",
+      "description": "Load SDXL base model",
+      "inputs": {
+        "ckpt_name": "sdxl-base.safetensors"
+      },
+      "outputs": [
+        "model",
+        "clip",
+        "vae"
+      ]
+    },
+    {
+      "id": "N7",
+      "type": "builtin",
+      "class_type": "CLIPTextEncode",
+      "description": "Positive prompt",
+      "inputs": {
+        "clip": "N6.clip",
+        "text": "photorealistic young woman, natural skin texture, soft makeup, detailed eyes, realistic lighting, same pose, same framing, cinematic"
+      },
+      "outputs": ["conditioning"]
+    },
+    {
+      "id": "N8",
+      "type": "builtin",
+      "class_type": "CLIPTextEncode",
+      "description": "Negative prompt",
+      "inputs": {
+        "clip": "N6.clip",
+        "text": "deformed face, bad anatomy, extra fingers, blurry, plastic skin, warped mouth, asymmetrical eyes, lowres, artifacts"
+      },
+      "outputs": ["conditioning"]
+    },
+    {
+      "id": "N5",
+      "type": "custom",
+      "class_type": "ACN_AdvancedControlNetApply_v2",
+      "description": "Apply pose conditioning",
+      "inputs": {
+        "positive": "N7.conditioning",
+        "negative": "N8.conditioning",
+        "control_net": "N4.controlnet",
+        "image": "N3.image",
+        "strength": 0.82,
+        "start_percent": 0.0,
+        "end_percent": 1.0
+      },
+      "outputs": ["positive", "negative"]
+    },
+    {
+      "id": "N9",
+      "type": "builtin",
+      "class_type": "LoadImage",
+      "description": "Load reference face image",
+      "inputs": {
+        "image": "input/ref_face.jpg"
+      },
+      "outputs": ["image"]
+    },
+    {
+      "id": "N10",
+      "type": "custom",
+      "class_type": "IPAdapterUnifiedLoader",
+      "description": "Load IPAdapter model + image encoder",
+      "inputs": {
+        "model": "N6.model",
+        "preset": "PLUS FACE (portraits)"
+      },
+      "outputs": [
+        "model",
+        "ipadapter"
+      ]
+    },
+    {
+      "id": "N11",
+      "type": "custom",
+      "class_type": "IPAdapter",
+      "description": "Apply reference-face consistency",
+      "inputs": {
+        "model": "N10.model",
+        "ipadapter": "N10.ipadapter",
+        "image": "N9.image",
+        "weight": 0.68
+      },
+      "outputs": ["model"]
+    },
+    {
+      "id": "N12",
+      "type": "builtin",
+      "class_type": "VAEEncode",
+      "description": "Frame encode",
+      "inputs": {
+        "pixels": "N2.images",
+        "vae": "N6.vae"
+      },
+      "outputs": ["samples"]
+    },
+    {
+      "id": "N13",
+      "type": "builtin",
+      "class_type": "KSampler",
+      "description": "Core denoising pass",
+      "inputs": {
+        "model": "N11.model",
+        "positive": "N5.positive",
+        "negative": "N5.negative",
+        "latent_image": "N12.samples",
+        "seed": 42,
+        "steps": 24,
+        "cfg": 4.5,
+        "sampler_name": "dpmpp_2m_sde",
+        "scheduler": "karras",
+        "denoise": 0.48
+      },
+      "outputs": ["samples"]
+    },
+    {
+      "id": "N14",
+      "type": "builtin",
+      "class_type": "VAEDecode",
+      "description": "Decode latents back to RGB frames",
+      "inputs": {
+        "samples": "N13.samples",
+        "vae": "N6.vae"
+      },
+      "outputs": ["images"]
+    },
+    {
+      "id": "N15",
+      "type": "custom",
+      "class_type": "VHS_VideoCombine",
+      "description": "Export video with audio + metadata",
+      "inputs": {
+        "images": "N14.images",
+        "audio": "N1.audio",
+        "fps": 24,
+        "filename_prefix": "gender_swap_pass1",
+        "format": "mp4",
+        "save_output": true,
+        "meta_batch": false
+      },
+      "outputs": [
+        "video",
+        "filename"
+      ]
+    }
+  ],
+  "quality_checks": {
+    "face_artifacts": [
+      "face jitter",
+      "mouth distortion",
+      "hand anomalies"
+    ],
+    "tuning": {
+      "denoise": "if face drifts, reduce by 0.05",
+      "controlnet_weight": "if pose breaks, increase by 0.05",
+      "cfg": "if expression is stiff, reduce by 0.2"
+    }
+  },
+  "status": {
+    "required_setup": [
+      "Install/verify OpenPose preprocessor node",
+      "Place model files in matching paths",
+      "Match CLIP Vision + IPAdapter version with your model profile",
+      "Use IPAdapter Unified Loader with preset 'PLUS FACE (portraits)'"
+    ]
+  }
+}

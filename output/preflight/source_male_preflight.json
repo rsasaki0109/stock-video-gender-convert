@@ -1,0 +1,179 @@
+{
+  "status": "PASS",
+  "video": "/media/sasaki/aiueo/ai_coding_ws/ComfyUI/input/source_male.mp4",
+  "metrics": {
+    "sampled_frames": 12,
+    "detected_frames": 12,
+    "detected_ratio": 1.0,
+    "mean_face_area_ratio": 0.12934489936985596,
+    "max_face_area_ratio": 0.1650390625,
+    "eye_detected_ratio": 1.0,
+    "mean_face_sharpness": 65.3357030800821
+  },
+  "thresholds": {
+    "min_detected_ratio": 0.6,
+    "min_mean_face_area_ratio": 0.015,
+    "min_max_face_area_ratio": 0.025,
+    "min_eye_detected_ratio": 0.35,
+    "min_mean_face_sharpness": 15.0
+  },
+  "issues": [],
+  "frame_debug": [
+    {
+      "frame_idx": 0,
+      "detected": true,
+      "bbox": [
+        1054,
+        284,
+        792,
+        792
+      ],
+      "face_area_ratio": 0.075625,
+      "eye_detected": true,
+      "face_sharpness": 82.3111776878824
+    },
+    {
+      "frame_idx": 40,
+      "detected": true,
+      "bbox": [
+        1049,
+        277,
+        820,
+        820
+      ],
+      "face_area_ratio": 0.08106674382716049,
+      "eye_detected": true,
+      "face_sharpness": 75.68331132551329
+    },
+    {
+      "frame_idx": 79,
+      "detected": true,
+      "bbox": [
+        1069,
+        290,
+        795,
+        795
+      ],
+      "face_area_ratio": 0.0761990017361111,
+      "eye_detected": true,
+      "face_sharpness": 74.19972232153253
+    },
+    {
+      "frame_idx": 119,
+      "detected": true,
+      "bbox": [
+        1053,
+        295,
+        810,
+        810
+      ],
+      "face_area_ratio": 0.0791015625,
+      "eye_detected": true,
+      "face_sharpness": 80.37827916551181
+    },
+    {
+      "frame_idx": 159,
+      "detected": true,
+      "bbox": [
+        1096,
+        184,
+        1048,
+        1048
+      ],
+      "face_area_ratio": 0.13241512345679013,
+      "eye_detected": true,
+      "face_sharpness": 32.305249678265696
+    },
+    {
+      "frame_idx": 198,
+      "detected": true,
+      "bbox": [
+        849,
+        158,
+        1126,
+        1126
+      ],
+      "face_area_ratio": 0.15285927854938272,
+      "eye_detected": true,
+      "face_sharpness": 42.83693752248462
+    },
+    {
+      "frame_idx": 238,
+      "detected": true,
+      "bbox": [
+        1268,
+        112,
+        1163,
+        1163
+      ],
+      "face_area_ratio": 0.16307014371141976,
+      "eye_detected": true,
+      "face_sharpness": 57.07239482492309
+    },
+    {
+      "frame_idx": 277,
+      "detected": true,
+      "bbox": [
+        1310,
+        117,
+        1149,
+        1149
+      ],
+      "face_area_ratio": 0.1591677517361111,
+      "eye_detected": true,
+      "face_sharpness": 60.71786498807524
+    },
+    {
+      "frame_idx": 317,
+      "detected": true,
+      "bbox": [
+        1326,
+        128,
+        1129,
+        1129
+      ],
+      "face_area_ratio": 0.1536748890817901,
+      "eye_detected": true,
+      "face_sharpness": 69.57686046918889
+    },
+    {
+      "frame_idx": 357,
+      "detected": true,
+      "bbox": [
+        1365,
+        124,
+        1144,
+        1144
+      ],
+      "face_area_ratio": 0.1577854938271605,
+      "eye_detected": true,
+      "face_sharpness": 67.30180490667435
+    },
+    {
+      "frame_idx": 396,
+      "detected": true,
+      "bbox": [
+        1380,
+        98,
+        1170,
+        1170
+      ],
+      "face_area_ratio": 0.1650390625,
+      "eye_detected": true,
+      "face_sharpness": 71.60590802950409
+    },
+    {
+      "frame_idx": 436,
+      "detected": true,
+      "bbox": [
+        1378,
+        123,
+        1138,
+        1138
+      ],
+      "face_area_ratio": 0.1561347415123457,
+      "eye_detected": true,
+      "face_sharpness": 70.03892604142928
+    }
+  ]
+}

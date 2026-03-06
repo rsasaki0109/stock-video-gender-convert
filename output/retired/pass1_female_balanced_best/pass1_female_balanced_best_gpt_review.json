@@ -1,0 +1,40 @@
+{
+  "status": "COMPLETED_GPT_REVIEW",
+  "review_mode": "gpt_review",
+  "verdict": "FAIL",
+  "confidence": 0.92,
+  "review_target": "/media/sasaki/aiueo/ai_coding_ws/stock-video-gender-convert/output/review/pass1_female_balanced_best_review_board.jpg",
+  "reasons": [
+    "The requested feminine presentation is not visually consistent across sampled frames.",
+    "Several sampled frames revert to a clearly masculine-looking face rather than a stable transformed result.",
+    "The output alternates between softened/feminized frames and frames that still read as the original male face.",
+    "Auto metrics are overstating success relative to the visible result."
+  ],
+  "key_frames": [
+    {
+      "frame": 0,
+      "assessment": "closer to target presentation"
+    },
+    {
+      "frame": 8,
+      "assessment": "closer to target presentation"
+    },
+    {
+      "frame": 32,
+      "assessment": "reverts away from target presentation"
+    },
+    {
+      "frame": 39,
+      "assessment": "reverts away from target presentation"
+    },
+    {
+      "frame": 47,
+      "assessment": "reverts away from target presentation"
+    },
+    {
+      "frame": 63,
+      "assessment": "reverts away from target presentation"
+    }
+  ],
+  "next_action": "Treat this output as rejected and strengthen the generation path before producing a new candidate."
+}
