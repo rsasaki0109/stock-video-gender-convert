@@ -1,370 +1,430 @@
 # Project Plan
 
 ## Objective
-Build a repeatable workflow to convert stock-footage people videos with AI gender conversion and publish short videos safely.
+Build a repeatable workflow to convert stock-footage people videos with AI gender restyling, keep identity and pose stable enough for short-form video, and package final clips safely for publication.
 
-## Scope
-- Use only stock footage whose license explicitly allows modification and publication.
-- Run generation with ComfyUI on a 16GB VRAM machine.
-- Keep pose and identity stable with OpenPose + IPAdapter face conditioning.
-- Ship short-form outputs with AI-content labeling and without misleading identity claims.
+## Executive Summary (2026-03-10)
 
-## Current State (2026-03-09)
+The project is no longer blocked on setup. It is now blocked on two narrower issues:
 
-### What is already proven
-- [x] ComfyUI environment and required custom nodes are installed.
-- [x] Required models and source inputs are in place for Pass 1 readiness.
-- [x] Baseline Pass 1 output exists and has approved review artifacts.
-- [x] Reproducibility has been demonstrated on at least one additional source clip.
-- [x] A production payload has been saved at `pass1_production_payload.json`.
-- [x] The `832x1472 / steps 24` target was tested on 2026-03-09 and retired on the current 16GB machine because of OOM.
-- [x] Pass 2 standardization files now exist: `pass2_detailer_runbook.md`, `pass2_detailer_preset.json`.
-- [x] Three full-length `8.0s` clips now exist and are marked `approved_gpt_review`:
+1. motion quality
+2. source-license provenance
+
+What is already true:
+
+- ComfyUI, required nodes, and required models are installed and proven.
+- A stable Pass 1 baseline exists on the current machine.
+- Three publish-ready vertical clips already exist in the repo:
+  - `output/video/source_male_8fps_prod_v1_publish_ready.mp4`
+  - `output/video/source_seg26_8fps_prod_v2_publish_ready.mp4`
+  - `output/video/source_seg53_8fps_prod_v3_publish_ready.mp4`
+- Subtitle burn-in, basic audio bed, timing notes, review artifacts, and upload metadata already exist for those three clips.
+- Japanese early-20s / cute-direction probe work has already been demonstrated in short low-cost probe runs and is documented in `README.md`.
+
+What is not closed:
+
+- The original stock source provenance is still not proven strongly enough for external publishing.
+- The three existing final clips are technically usable but are still based on an `8 fps` generation baseline, so motion smoothness is the main remaining quality concern.
+- A higher-motion local baseline has not yet been fully locked on the current 16GB-class GPU.
+
+The project has therefore moved from "can this work at all?" to "what is the best realistic shipping path on this hardware?"
+
+## Current Repository State
+
+### Proven and committed outputs
+
+- Environment readiness:
+  - ComfyUI installed
+  - custom nodes installed
+  - required SDXL / ControlNet / IPAdapter assets in place
+- Stable generation baseline:
+  - canonical payload: `pass1_canonical_payload.json`
+  - production payload: `pass1_production_payload.json`
+  - reviewed reference image: `output/reference/pass1_best_ref.jpg`
+- Three reviewed production-style clips:
   - `output/video/source_male_8fps_prod_v1.mp4`
   - `output/video/source_seg26_8fps_prod_v2.mp4`
   - `output/video/source_seg53_8fps_prod_v3.mp4`
+- Three publish-ready exports:
+  - `output/video/source_male_8fps_prod_v1_publish_ready.mp4`
+  - `output/video/source_seg26_8fps_prod_v2_publish_ready.mp4`
+  - `output/video/source_seg53_8fps_prod_v3_publish_ready.mp4`
+- Review and report artifacts:
+  - `output/report/`
+  - `output/review/`
+  - `output/publish/`
+  - `output/timing/`
+- Proven Japanese / cute-direction probes:
+  - `output/video/source_jp_early20s_fastprobe.mp4`
+  - `output/video/source_jp_early20s_bootstrap_probe.mp4`
+  - `output/video/source_jp_cute_probe.mp4`
 
-### Evidence already in the repo
-- Approved baseline summary: `output/report/pass1_best_summary.json`
-- Approved reproducibility summary: `output/report/source_male_female_best_summary.json`
-- Approved alternate variant summary: `output/report/pass1_gptfix_final_summary.json`
-- Working baseline reference image: `output/reference/pass1_best_ref.jpg`
-- Review boards and review JSONs: `output/review/`
-- Canonical payload and blueprint: `pass1_canonical_payload.json`, `comfyui_gender_swap_pass1_blueprint.json`
-- Production payload: `pass1_production_payload.json`
-- 832 decision log: `output/decisions/target_832_resolution_decision.md`
+### Compliance and provenance status
 
-### What is not done yet
-- [x] Three full-length generation-approved clips are now generated and packaged in `output/video/`.
-- [ ] Most previously approved clips are short evaluation renders (`64` frames at `24 fps`, about `2.67s`), not the intended `8-15s` final assets.
-- [x] Subtitle/SFX finishing has now been completed for the final three clips.
-- [ ] Per-clip license verification and upload checklist have not been closed.
+- The strongest current source candidate is still a Pixabay asset, but the repo does not contain direct acquisition proof.
+- Internal notes already exist:
+  - `output/license/probable_source_candidate.md`
+  - `output/license/manual_verification_blocker.md`
+  - `output/license/source_license_note.md`
+- Because of that, the current outputs are fine for internal/private workflow validation, but external publishing should still be treated as blocked until provenance is closed.
 
-### Important clarification
-- The approved production-safe default is now `704x1248`, based on successful reviewed outputs.
-- The original `832x1472` target is not blocked by uncertainty anymore; it is currently retired on this machine due to OOM.
-- Only one local stock clip currently satisfies the `8-15s` source-length requirement; the three final clips therefore need to be different segments of that same licensed source unless additional footage is added.
-- This means the project is past "environment setup", "proof of viability", and "baseline locking", but not yet at "production complete".
+## Closed Technical Decisions
 
-## Final Done Definition
-The project is only complete when all of the following are true:
+### 1. `832x1472 / steps 24` is retired on this machine
 
-- [x] A stable default Pass 1 recipe is documented and saved as reusable JSON/payload settings.
-- [x] The target configuration `832x1472`, `steps 24` is either:
-  - [ ] proven stable and adopted as default, or
-  - [x] explicitly retired with evidence and replaced by a justified fallback default.
-- [ ] A Pass 2 recovery path exists for mouth/eyes/hands failures.
-- [ ] Three publish-ready clips have been generated from allowed stock footage.
-- [ ] Each final clip has:
-  - [ ] QC report
-  - [ ] summary JSON
-  - [ ] review board
-  - [ ] human/GPT review decision
-  - [x] subtitles and SFX
-  - [ ] timing record
-  - [ ] source-license verification note
-  - [ ] platform upload checklist marked complete
-- [x] AI-generated content labeling steps are documented for publishing.
-- [ ] No final clip makes misleading identity claims about a real private person.
+This was the largest unresolved question in the original plan. It is now closed.
 
-## Operating Rules
-- Only use stock clips that can legally be modified and republished.
-- Keep all working outputs under `output/` and avoid ad-hoc final exports scattered elsewhere.
-- Treat `output/reference/pass1_best_ref.jpg` as the current working female baseline unless a better reviewed reference supersedes it.
-- Do not trust a generation result based only on visual impression; require QC artifacts plus review.
-- Use GPU for real runs. `scripts/run_pass1_pipeline.sh` defaults to CPU unless `PASS1_CPU=0` is set.
-- If the target spec fails repeatedly, record the reason in this file and move to the fallback ladder instead of stalling.
+- The target spec was tested and did not fit the current machine reliably.
+- The official fallback default is now `704x1248`.
+- The decision log already exists:
+  - `output/decisions/target_832_resolution_decision.md`
 
-## Milestones
-1. Lock the default baseline recipe
-2. Standardize recovery tuning and Pass 2
-3. Produce three approved clips
-4. Finish captions, SFX, and timing records
-5. Complete publishing and compliance checklist
+### 2. The current stable production-safe baseline is still the older `8 fps` route
 
-## Execution Order
-Work in this exact order unless a blocking issue forces a rollback:
+This is not the prettiest result, but it is the last fully proven route on local hardware.
 
-1. Reconfirm readiness and launch ComfyUI on GPU
-2. Lock the best default Pass 1 recipe
-3. Prove or retire the `832x1472` target preset
-4. Standardize Pass 2 remediation
-5. Select three source clips and preflight them
-6. Generate the three clips with QC and review
-7. Finish edit pass with captions and SFX
-8. Complete license and upload checklist
-9. Mark the project done only after all artifacts are saved
+- Known-good pattern:
+  - `64 frames`
+  - `8 fps`
+  - `8.0s`
+  - around `704x1248`
+- This route produced the three approved clips already stored in the repo.
 
-## Phase 1: Lock The Default Baseline Recipe
+### 3. Motion smoothness is now the main technical quality problem
 
-### Goal
-Establish the production starting point so later runs are reproducible.
+This is not a setup problem anymore. It is a resource and workflow-design problem.
 
-### Entry Criteria
-- `scripts/check_pass1_readiness.sh` returns `RESULT: PASS`
-- ComfyUI models and input files exist
-- `output/reference/pass1_best_ref.jpg` is available
+- The current generator can make stable clips on this hardware.
+- What it cannot do reliably is generate long-enough clips at meaningfully higher native fps without running out of VRAM.
 
-### Tasks
-- [ ] Run readiness check:
-  - `bash scripts/check_pass1_readiness.sh`
-- [ ] Launch ComfyUI on GPU:
-  - `PASS1_CPU=0 PASS1_COMFYUI_ARGS='--user-directory /tmp/comfyui-user-test' bash scripts/run_pass1_pipeline.sh`
-- [ ] Use the current working baseline reference:
-  - `output/reference/pass1_best_ref.jpg`
-- [ ] Confirm the canonical payload still matches the intended default recipe:
-  - `pass1_canonical_payload.json`
-- [ ] Record the currently accepted baseline metrics in this file for comparison:
-  - `female_ratio >= 0.70`
-  - `female_prob_mean >= 0.55`
-  - `face_similarity_mean >= 0.95`
-  - `face_switch_ratio == 0.0`
+## Hardware Reality On The Current Machine
 
-### Exit Criteria
-- [ ] There is one clearly named baseline recipe to start every new clip from.
-- [ ] The baseline has both automatic QC success and review approval.
-- [ ] The baseline reference image is no longer ambiguous.
+The current GPU is a 16GB-class card, but the practical CUDA limit seen by ComfyUI is about `15.56 GiB`.
 
-## Phase 2: Prove Or Retire The Target Spec `832x1472 / steps 24`
+That is enough for:
 
-### Goal
-Close the biggest open question in the original project plan.
+- SDXL image-to-video-style conversion at modest frame counts
+- ControlNet + IPAdapter conditioning
+- stable `8 fps` / `64` frame generation
 
-### Why this phase exists
-The original plan says the first clip must run at `832x1472`, `steps 24`. The current approved artifacts show success at `704x1248`, which means the target spec is still open.
+That is not enough for:
 
-### Primary Attempt
-- [ ] Run one clip at:
-  - resolution: `832x1472`
-  - `steps`: `24`
-  - `cfg`: `4.5`
-  - `denoise`: `0.48`
-  - `controlnet weight`: `0.82`
-  - `ipadapter weight`: `0.68`
-  - `sampler`: `dpmpp_2m_sde`
-  - `scheduler`: `karras`
+- comfortably moving to `96 frames / 12 fps / 8.0s` at the resolutions we actually want
+- treating this pipeline like a true high-fps native video model
 
-### Recommended path
-- [ ] First do the manual or UI-driven attempt described in `pass1_first_clip_runbook.md`
-- [ ] Then run automatic QC if a payload is ready:
-  - `COMFY_OUTPUT_DIR=/workspace/ai_coding_ws/ComfyUI/output PASS1_QC_MAX_ATTEMPTS=5 PASS1_QC_BASE_SEED=1337 PASS1_QC_SEED_STEP=97 bash scripts/run_pass1_with_quality_gate.sh pass1_canonical_payload.json`
+The main reason is the workflow shape:
 
-### Failure handling ladder
-- [ ] If OOM or instability occurs at `832x1472`, try `768x1365`
-- [ ] If still unstable, try `704x1248`
-- [ ] If `mouth/eyes/hands` degrade, lower `denoise`
-- [ ] If pose drifts, raise `controlnet weight`
-- [ ] If identity weakens, raise `ipadapter weight` slightly and retry
+- SDXL base model
+- OpenPose / ControlNet conditioning
+- IPAdapter face conditioning
+- multi-frame latent processing
 
-### Decision rule
-- [ ] Adopt `832x1472` as the production default only if it passes QC and review without recurring major defects.
-- [ ] If `832x1472` repeatedly fails and `704x1248` remains the stable winner, document that fallback as the official default and explicitly mark the original target as retired.
+As soon as total frame count and resolution both climb, `KSampler` becomes the limiting step.
 
-### Exit Criteria
-- [ ] The project has a documented default resolution.
-- [ ] The status of `832x1472` is no longer ambiguous.
-- [ ] `PLAN.md` states the chosen production default and why.
+## Motion And Smoothness Investigation (2026-03-10)
 
-## Phase 3: Standardize Quality Tuning And Pass 2
+### Why this investigation was needed
 
-### Goal
-Make remediation repeatable instead of ad-hoc.
+The user feedback was correct: the current clips are not smooth enough to feel like strong video outputs. The repo already had successful technical clips, but they were generated from an `8 fps` baseline and therefore still looked choppy.
 
-### Trigger conditions for Pass 2
-- [ ] Mouth breaks or warps
-- [ ] Eyes lose symmetry or detail
-- [ ] Hands become distracting in the final cut
-- [ ] Face briefly reverts or drifts between frames
+The goal of this investigation was:
 
-### Pass 2 defaults
-- [ ] Reload the Pass 1 output
-- [ ] Apply face-local detailer only
-- [ ] Keep Pass 2 `denoise` in the `0.20-0.35` range
-- [ ] Re-export with `VHS_VideoCombine`
+- keep total duration at `8.0s`
+- increase temporal density
+- stay on the local GPU if possible
 
-### Tuning rules to standardize
-- [ ] Face drifting toward another person:
-  - lower `denoise`
-- [ ] Skeleton or pose collapse:
-  - raise `controlnet weight`
-- [ ] Expression too stiff:
-  - lower `cfg` slightly
-- [ ] Face identity weak:
-  - raise `ipadapter weight` modestly
+### Configurations tested
 
-### Deliverables
-- [ ] One written Pass 2 checklist in this repo
-- [ ] One saved preset JSON or payload variant for Pass 2
-- [ ] One short note defining when Pass 2 should be skipped
+#### Attempt A: `96 frames / 12 fps / 704x1248`
 
-### Exit Criteria
-- [ ] Another person could repeat Pass 2 without guessing.
-- [ ] The project has a named recovery path for common artifact classes.
+Intent:
 
-## Phase 4: Select And Preflight Three Final Candidate Clips
+- keep `8.0s`
+- improve motion by increasing frame count from `64` to `96`
+- preserve the previously proven production-like resolution
 
-### Goal
-Choose sources that are likely to finish successfully and legally.
+Result:
 
-### Source selection criteria
-- [ ] Stock footage only
-- [ ] License allows modification and publication
-- [ ] Clip length between `8-15s`
-- [ ] Main subject remains visible enough for face tracking
-- [ ] Framing is suitable for vertical output or easy crop
-- [ ] No severe occlusion for most of the clip
+- failed with GPU OOM in `KSampler`
 
-### Preflight process
-- [ ] Gather at least 5 candidate clips
-- [ ] Reject any clip with unclear licensing
-- [ ] Run preflight checks before generation
-- [ ] Keep only the best 3 plus 1 backup
+Observed error:
 
-### Preflight commands
-- [ ] Batch path:
-  - `bash scripts/run_pass1_best_batch.sh pass1_canonical_payload.json <video1> <video2> <video3> ...`
-- [ ] Preflight reports will be saved under:
-  - `output/preflight/`
+- requested: about `1.57 GiB`
+- free at failure: about `88 MiB`
+- device limit: `15.56 GiB`
 
-### Exit Criteria
-- [ ] Three primary clips are selected
-- [ ] One backup clip is selected
-- [ ] Every selected clip has a written license note
+Conclusion:
 
-## Phase 5: Generate Three Approved Clips
+- this configuration is too heavy for the current local GPU
 
-### Goal
-Produce three final-generation assets that clear QC and review.
+#### Attempt B: `96 frames / 12 fps / 640x1136`
 
-### For each selected clip
-- [ ] Run Pass 1 with the locked baseline recipe
-- [ ] Run automatic QC
-- [ ] Generate review board artifacts
-- [ ] Review the result
-- [ ] If needed, run Pass 2 and re-review
-- [ ] Save final approved output under `output/video/`
-- [ ] Save matching report artifacts under `output/report/` and `output/review/`
+Intent:
 
-### Preferred execution path
-- [ ] Use the reviewed baseline reference image:
-  - `PASS1_FINAL_REF_IMAGE=output/reference/pass1_best_ref.jpg`
-- [ ] Run best-search generation per clip:
-  - `PASS1_FINAL_REF_IMAGE=output/reference/pass1_best_ref.jpg bash scripts/run_pass1_best.sh pass1_canonical_payload.json`
-- [ ] For multiple clips:
-  - `PASS1_BATCH_REF_IMAGE=output/reference/pass1_best_ref.jpg bash scripts/run_pass1_best_batch.sh pass1_canonical_payload.json <video1> <video2> <video3>`
+- reduce resolution while keeping the same temporal target
 
-### Per-clip acceptance criteria
-- [ ] `status` is `PASS`
-- [ ] `issues` is empty
-- [ ] `final_decision` is `approved_gpt_review` or equivalent approved state
-- [ ] No major `mouth / eyes / hands` defects remain in the final edit
-- [ ] No obvious face switch or identity collapse
+Result:
 
-### Exit Criteria
-- [ ] There are three approved output videos.
-- [ ] Each approved output has full report and review artifacts.
+- failed with GPU OOM in `KSampler`
 
-## Phase 6: Subtitle, SFX, And Edit Packaging
+Observed error:
 
-### Goal
-Turn the technically successful outputs into publish-ready short videos.
+- requested: about `1.30 GiB`
+- free at failure: about `104 MiB`
 
-### For each approved clip
-- [x] Trim head/tail if needed
-- [x] Add subtitle track or burned-in captions
-- [x] Add SFX or light audio sweetening
-- [x] Confirm subtitle timing does not hide facial details
-- [x] Export the publish-ready version
+Conclusion:
 
-### Packaging requirements
-- [x] Keep the original generated output untouched
-- [x] Save the publish-ready edit with clear naming
-- [x] Record edit decisions in a short note
+- the bottleneck is not only resolution
+- frame count itself is already too expensive in this workflow
 
-### Timing record
-- [ ] Measure:
-  - source selection time
-  - generation time
-  - QC/review time
-  - Pass 2 time, if used
-  - subtitle/SFX edit time
-  - total clip completion time
+#### Attempt C: `80 frames / 10 fps / 576x1024`
 
-### Exit Criteria
-- [x] Three publish-ready edited clips exist
-- [x] Completion time per clip is recorded
+Intent:
 
-## Phase 7: Publishing And Compliance
+- keep `8.0s`
+- reduce total frames compared with `96/12`
+- still beat the older `64/8` baseline on temporal density
 
-### Goal
-Finish the work safely and with a repeatable release checklist.
+Result:
 
-### Per-clip checklist
-- [ ] Source license re-checked
-- [x] AI-generated content label prepared for TikTok
-- [x] Caption/description avoids misleading identity claims
-- [x] Final file chosen for upload
-- [x] Upload metadata prepared
+- this run completed successfully
 
-### Compliance notes
-- [ ] Do not imply the subject is a real identified private person
-- [ ] Do not imply the transformation reveals a person's "true" identity
-- [ ] Keep a local note of the stock source URL and license terms
+Observed metrics from the temporary report:
 
-### Exit Criteria
-- [ ] Every final clip has a completed upload checklist
-- [ ] Publishing can proceed without unresolved compliance questions
+- `status = PASS`
+- `gender_female_ratio = 0.625`
+- `gender_female_prob_mean = 0.5155692022086333`
+- `face_similarity_mean = 0.9797174045851293`
+- `face_switch_ratio = 0.0`
+- `issues = []`
 
-## Artifact Checklist
+Interpretation:
 
-### Required baseline artifacts
-- [ ] `pass1_canonical_payload.json`
-- [ ] `comfyui_gender_swap_pass1_blueprint.json`
-- [ ] `output/reference/pass1_best_ref.jpg`
+- continuity is strong enough
+- face switching is controlled
+- however the femininity score is still weaker than the previously accepted stronger baseline thresholds
+- therefore this is a useful motion experiment, but not yet a locked production preset
 
-### Required per-clip artifacts
-- [ ] final video in `output/video/`
-- [ ] QC report in `output/report/`
-- [ ] summary JSON in `output/report/`
-- [ ] review board image in `output/review/`
-- [ ] review JSON in `output/review/`
-- [ ] timing record
-- [ ] license note
+### What this means in plain terms
 
-## Risk Register
+On this machine, the practical frontier is no longer "can we generate anything?" It is:
 
-### Technical risks
-- [ ] `832x1472` may remain unstable on the current machine for some clips
-- [ ] Identity can regress if the wrong reference image is reused
-- [ ] QC can pass while visual taste is still borderline, so review remains necessary
+- native `8 fps` works
+- native `10 fps` may be realistic if resolution is reduced
+- native `12 fps` is already too expensive at useful resolutions
 
-### Operational risks
-- [ ] Ambiguous stock-footage licenses can block publishing late in the process
-- [ ] Subtitle placement can hide face details and reduce perceived quality
-- [ ] Batch generation can waste time if preflight is skipped
+That means the likely local strategy is:
 
-### Mitigations
-- [ ] Use the fallback resolution ladder instead of repeatedly forcing a failing preset
-- [ ] Keep `output/reference/pass1_best_ref.jpg` as the reviewed default until replaced
-- [ ] Run preflight before spending generation time
-- [ ] Require written license notes before clips enter the final-three set
+1. generate at `8-10 fps`
+2. keep duration at `8.0s`
+3. interpolate the final result to `24 fps`
 
-## Immediate Next Actions
-These are the next actions to move the project again right now:
+## Interpolation Findings
 
-1. [ ] Produce full-length (`8-15s`) outputs instead of `64`-frame evaluation clips
-2. [ ] Add subtitle and SFX finishing for the three kept clips
-3. [ ] Record final per-clip completion time including edit time
-4. [ ] Store source license proof for each clip
-5. [ ] Complete TikTok upload checklist for each kept clip
+Interpolation scripts were added locally so we can test the more realistic shipping path:
+
+- `scripts/interpolate_video_24fps.sh`
+- `scripts/interpolate_publish_ready_batch.sh`
+
+Three interpolated local exports were also generated for the existing publish-ready clips:
+
+- `output/video/source_male_8fps_prod_v1_publish_ready_interp24.mp4`
+- `output/video/source_seg26_8fps_prod_v2_publish_ready_interp24.mp4`
+- `output/video/source_seg53_8fps_prod_v3_publish_ready_interp24.mp4`
+
+These are useful as evaluation artifacts, but they should currently be treated as local experiments until we decide whether to commit them.
+
+Important interpretation:
+
+- interpolation helps perceived smoothness
+- interpolation does not fix all generative instability
+- interpolation is therefore a realistic delivery tactic, not a magic replacement for stronger native motion generation
+
+## Current Recommended Decision
+
+The most realistic local path is now:
+
+- keep the existing `8 fps` pipeline as the last fully proven baseline
+- continue local R&D around `10 fps`
+- treat `12 fps` native generation as too expensive on this hardware for now
+- use `24 fps` interpolation for delivery if the base clip is already visually acceptable
+
+In short:
+
+- native `24 fps` generation is not the local path
+- native `12 fps` is probably too expensive
+- native `10 fps` is the realistic ceiling worth tuning
+
+## Aesthetic Direction Status
+
+The repo now contains two distinct kinds of work:
+
+1. production-safe baseline clips using the older reviewed reference image
+2. newer Japanese early-20s / cute-direction probes
+
+The cute-direction probes are encouraging for look development, but they are not yet full replacements for the stable production baseline.
+
+What is already true:
+
+- short probe runs can push the look toward a Japanese / cute / early-20s visual direction
+- `source_jp_cute_probe` is the current preferred aesthetic probe
+
+What is not yet true:
+
+- that same direction has not yet been proven across full-length smooth-motion production settings
+
+So the current recommendation is:
+
+- treat the cute-direction probe as a styling lead
+- do not yet treat it as the final full-length production baseline
+
+## Updated Done Definition
+
+The project should now be considered complete only when all of the following are true:
+
+- [x] A reusable local baseline exists
+- [x] The `832x1472` decision is closed
+- [x] Three reviewed technical clips exist
+- [x] Three publish-ready `8.0s` exports exist
+- [ ] A clear motion strategy is locked:
+  - [ ] either keep `8 fps` + interpolation as the official shipping route
+  - [ ] or prove a stronger local `10 fps` baseline
+  - [ ] or move high-motion generation to larger hardware
+- [ ] The chosen motion route is documented with exact settings
+- [ ] Source provenance is strong enough for external publishing
+- [ ] Upload checklists can be honestly marked complete
+
+## Remaining Workstreams
+
+### Workstream A: Close the motion strategy
+
+Goal:
+
+- stop treating motion quality as an open-ended experiment
+
+Decision options:
+
+#### Option A: Ship on the proven local path
+
+- keep `64/8` as the generation baseline
+- interpolate to `24 fps` for delivery
+- accept that the result is good enough for this project scope
+
+Pros:
+
+- fastest
+- already near-complete
+- least GPU risk
+
+Cons:
+
+- still visually weaker than a truly smoother native result
+
+#### Option B: Lock a better local smooth baseline
+
+- continue tuning around `80/10 / 576x1024`
+- push femininity metrics back up without losing the motion win
+
+Likely tuning levers:
+
+- slightly stronger `IPAdapter` weight
+- prompt cleanup toward the desired style
+- possibly lower `denoise` a bit if identity weakens
+- reuse the best bootstrap face reference
+
+Pros:
+
+- better local result without needing bigger hardware
+
+Cons:
+
+- still constrained by VRAM
+- more iteration time
+
+#### Option C: Move true smoother generation to larger hardware
+
+- retest `96/12` or stronger settings on a larger GPU
+
+Pros:
+
+- cleaner route to better native motion
+
+Cons:
+
+- leaves the local workflow ceiling unchanged
+
+### Workstream B: Close provenance
+
+Goal:
+
+- decide whether the current three clips can ever become externally publishable
+
+Current reality:
+
+- internal/private use: acceptable
+- external publishing: still blocked
+
+Required evidence:
+
+- original source URL, or
+- download record, or
+- archived proof that the local MP4 is from a license-appropriate source
+
+### Workstream C: Sync docs with the true operating model
+
+Goal:
+
+- stop pretending the old plan is still mostly about setup
+
+Needed:
+
+- keep `PLAN.md` aligned with the real blocker set
+- keep `README.md` aligned with the motion and probe story
+- keep any new smooth-generation helper scripts committed if they are intended to be part of the workflow
+
+## Concrete Next Actions
+
+These are the real next actions from the current state, in priority order:
+
+1. Decide whether the project should ship on:
+   - proven `8 fps` generation plus interpolation
+   - or a newly tuned `10 fps` local baseline
+2. If staying local and aiming for better motion:
+   - rerun the `80/10 / 576x1024` route
+   - tune femininity and style strength upward
+   - only accept it if it clears both motion and quality review
+3. If the current outputs are intended for any external platform:
+   - close provenance first
+4. If stronger smoothness is non-negotiable:
+   - move the high-fps generation attempt to bigger hardware rather than wasting more time on impossible local settings
+
+## Local Helper Scripts Added During This Investigation
+
+These files are part of the current local solution direction:
+
+- `scripts/run_pass1_best.sh`
+  - now forwards force-rate / frame-rate / skip-first-frames / select-every-nth to the search layer
+- `scripts/run_pass1_recipe_search.sh`
+  - now accepts and forwards skip/select parameters
+- `scripts/run_pass1_smooth_prod.sh`
+  - local wrapper for smoother-than-8fps generation attempts
+- `scripts/run_pass1_smooth_batch.sh`
+  - local batch wrapper for smooth-segment experiments
+- `scripts/interpolate_video_24fps.sh`
+  - local interpolation helper
+- `scripts/interpolate_publish_ready_batch.sh`
+  - local batch interpolation helper
+- `output/preflight/final_segment_candidates_smooth_2026-03-10.md`
+  - local notes for smooth-segment planning
 
 ## Completion Record
-Update this section as milestones close:
 
-- [x] Baseline recipe locked
+- [x] Environment setup complete
+- [x] Baseline generation proved
 - [x] `832x1472` decision closed
-- [x] Pass 2 standardized
-- [x] Three approved technical clips generated in the repo (`pass1_best`, `pass1_gptfix_final`, `source_male_female_best`)
-- [ ] Three edited clips packaged
-- [ ] License and upload checklist completed
-- [ ] Project complete
+- [x] Three technical production clips generated
+- [x] Three publish-ready exports generated
+- [x] Japanese cute-direction probe work demonstrated
+- [ ] Motion strategy locked
+- [ ] Source provenance closed
+- [ ] External publishing cleared

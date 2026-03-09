@@ -8,6 +8,8 @@ SEARCH_DIR="${PASS1_SEARCH_DIR:-/tmp/pass1_recipe_search}"
 FRAME_CAP="${PASS1_SEARCH_FRAME_CAP:-8}"
 FORCE_RATE="${PASS1_SEARCH_FORCE_RATE:-24}"
 FRAME_RATE="${PASS1_SEARCH_FRAME_RATE:-24}"
+SKIP_FIRST_FRAMES="${PASS1_SEARCH_SKIP_FIRST_FRAMES:-}"
+SELECT_EVERY_NTH="${PASS1_SEARCH_SELECT_EVERY_NTH:-}"
 TARGET_WIDTH="${PASS1_SEARCH_TARGET_WIDTH:-576}"
 TARGET_HEIGHT="${PASS1_SEARCH_TARGET_HEIGHT:-1024}"
 BASE_SEED="${PASS1_SEARCH_BASE_SEED:-1337}"
@@ -78,6 +80,14 @@ for idx in "${!RECIPES[@]}"; do
     --force-rate "$FORCE_RATE"
     --frame-rate "$FRAME_RATE"
   )
+
+  if [[ -n "$SKIP_FIRST_FRAMES" ]]; then
+    build_args+=(--skip-first-frames "$SKIP_FIRST_FRAMES")
+  fi
+
+  if [[ -n "$SELECT_EVERY_NTH" ]]; then
+    build_args+=(--select-every-nth "$SELECT_EVERY_NTH")
+  fi
 
   if [[ -n "$FILENAME_PREFIX_BASE" ]]; then
     build_args+=(--filename-prefix "${FILENAME_PREFIX_BASE}_${recipe}")
