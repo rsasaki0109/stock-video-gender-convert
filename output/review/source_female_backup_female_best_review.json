@@ -1,0 +1,37 @@
+{
+  "status": "PENDING_GPT_REVIEW",
+  "review_mode": "gpt_review",
+  "purpose": "Review whether the output clearly achieves the requested feminine presentation without identity drift.",
+  "note": "This review is about visual transformation quality. Do not use it to infer or label a person's gender identity.",
+  "artifacts": {
+    "review_board": "/workspace/ai_coding_ws/stock-video-gender-convert/output/review/source_female_backup_female_best_review_board.jpg",
+    "video": "/workspace/ai_coding_ws/stock-video-gender-convert/output/video/source_female_backup_female_best.mp4",
+    "source_video": "/workspace/ai_coding_ws/ComfyUI/input/source_female_backup.mp4",
+    "ref_image": "/workspace/ai_coding_ws/stock-video-gender-convert/output/reference/pass1_best_ref.jpg",
+    "faces_image": "/workspace/ai_coding_ws/stock-video-gender-convert/output/faces/source_female_backup_female_best_faces.jpg",
+    "report_json": "/workspace/ai_coding_ws/stock-video-gender-convert/output/report/source_female_backup_female_best_report.json"
+  },
+  "auto_metrics": {
+    "gender_female_ratio": 0.7272727272727273,
+    "gender_female_prob_mean": 0.725221315046538,
+    "face_similarity_mean": 0.9214091338818002,
+    "face_switch_ratio": 0.0
+  },
+  "gpt_review_checklist": [
+    "Across sampled frames, the subject looks clearly transformed toward the requested feminine presentation, not just slightly softened.",
+    "There is no obvious beard, stubble, heavy brow, or strongly masculine jaw reversion in the sampled frames.",
+    "The face remains visually consistent from frame to frame.",
+    "No sampled frame looks like a different person or a broken face blend."
+  ],
+  "gpt_review_output_contract": {
+    "allowed_values": [
+      "PASS",
+      "FAIL"
+    ],
+    "required_fields": [
+      "verdict",
+      "confidence",
+      "reasons"
+    ]
+  }
+}

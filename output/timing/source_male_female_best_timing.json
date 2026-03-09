@@ -1,0 +1,14 @@
+{
+  "basename": "source_male_female_best",
+  "source_video": "/workspace/ai_coding_ws/ComfyUI/input/source_male.mp4",
+  "output_video": "/workspace/ai_coding_ws/stock-video-gender-convert/output/video/source_male_female_best.mp4",
+  "generation_prompt_id": "d181bcea-0af7-4657-886e-2451752901c3",
+  "generation_started_at_ms": 1772776952329,
+  "generation_finished_at_ms": 1772777615746,
+  "generation_seconds": 663.417,
+  "qc_review_status": "approved_gpt_review",
+  "notes": [
+    "Generation time was extracted from ComfyUI history.",
+    "Subtitle and SFX edit time has not been recorded yet."
+  ]
+}
