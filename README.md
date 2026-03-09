@@ -31,6 +31,28 @@ Review board: `output/review/source_seg53_8fps_prod_v3_review_board.jpg`
 
 ![Clip 3 review board](output/review/source_seg53_8fps_prod_v3_review_board.jpg)
 
+## Japanese early-20s probe
+
+- Initial seed probe:
+  - `output/video/source_jp_early20s_fastprobe.mp4`
+  - used to bootstrap a tighter face reference from a successful transformed frame
+- Improved bootstrap reference:
+  - `output/reference/jp_early20s_bootstrap_ref.png`
+- Current probe output:
+  - `output/video/source_jp_early20s_bootstrap_probe.mp4`
+- Current probe review board:
+  - `output/review/source_jp_early20s_bootstrap_probe_review_board.jpg`
+- This is still a cheap internal probe (`16` frames at `576x1024`) for a Japanese / early-20s visual direction.
+- Auto metrics:
+  - `female_ratio=1.000`
+  - `female_prob_mean=0.897`
+  - `face_similarity_mean=0.987`
+- Current result: `pending_gpt_review`
+  - the main target metrics now pass
+  - the remaining QC issue is a conservative `multi_face_ratio=0.125`
+
+![Japanese early-20s bootstrap probe review board](output/review/source_jp_early20s_bootstrap_probe_review_board.jpg)
+
 ## Source provenance note
 
 - The local source files are:

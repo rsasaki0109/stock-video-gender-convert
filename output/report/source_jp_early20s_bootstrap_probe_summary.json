@@ -1,0 +1,24 @@
+{
+  "prompt_id": "e93ad5eb-9ab0-4697-b994-223e1ff08d14",
+  "status": "FAIL",
+  "selected_width": 576,
+  "selected_height": 1024,
+  "source_video": "/workspace/ai_coding_ws/ComfyUI/input/source.mp4",
+  "ref_image": "output/reference/jp_early20s_bootstrap_ref.png",
+  "auto_gate_passed": true,
+  "gpt_review_required": true,
+  "final_decision": "pending_gpt_review",
+  "female_ratio": 1.0,
+  "female_prob_mean": 0.8971853371131551,
+  "face_similarity_mean": 0.9865046237072495,
+  "face_switch_ratio": 0.0,
+  "issues": [
+    "multi_face_ratio out of range: 0.125"
+  ],
+  "thresholds": {
+    "female_ratio_min": 0.7,
+    "female_prob_mean_min": 0.55,
+    "face_switch_ratio_max": 0.0,
+    "face_similarity_mean_min": 0.95
+  }
+}
