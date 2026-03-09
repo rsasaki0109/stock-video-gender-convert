@@ -11,6 +11,26 @@ Internal workflow repo for converting stock-footage people videos with AI gender
 - Subtitle burn-in, audio bed, timing notes, review artifacts, and upload metadata are already generated.
 - The remaining blocker is source-license provenance for the original local clip.
 
+## Result previews
+
+### Clip 1
+
+Review board: `output/review/source_male_8fps_prod_v1_review_board.jpg`
+
+![Clip 1 review board](output/review/source_male_8fps_prod_v1_review_board.jpg)
+
+### Clip 2
+
+Review board: `output/review/source_seg26_8fps_prod_v2_review_board.jpg`
+
+![Clip 2 review board](output/review/source_seg26_8fps_prod_v2_review_board.jpg)
+
+### Clip 3
+
+Review board: `output/review/source_seg53_8fps_prod_v3_review_board.jpg`
+
+![Clip 3 review board](output/review/source_seg53_8fps_prod_v3_review_board.jpg)
+
 ## Source provenance note
 
 - The local source files are:
