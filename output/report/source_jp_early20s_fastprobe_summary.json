@@ -1,0 +1,22 @@
+{
+  "prompt_id": "1cd9a81e-b593-44d4-bf25-7c78a2772396",
+  "status": "PASS",
+  "selected_width": 576,
+  "selected_height": 1024,
+  "source_video": "/media/sasaki/aiueo/ai_coding_ws/ComfyUI/input/source.mp4",
+  "ref_image": "jp_early20s_kirei_ref.png",
+  "auto_gate_passed": false,
+  "gpt_review_required": true,
+  "final_decision": "rejected_auto_gate",
+  "female_ratio": 0.75,
+  "female_prob_mean": 0.4789670093378162,
+  "face_similarity_mean": 0.987242051647303,
+  "face_switch_ratio": 0.0,
+  "issues": [],
+  "thresholds": {
+    "female_ratio_min": 0.7,
+    "female_prob_mean_min": 0.55,
+    "face_switch_ratio_max": 0.0,
+    "face_similarity_mean_min": 0.95
+  }
+}
