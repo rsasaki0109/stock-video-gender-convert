@@ -1,0 +1,150 @@
+{
+  "prompt_id": null,
+  "status": "FAIL",
+  "api": "http://127.0.0.1:8188",
+  "args": {
+    "video": "/media/sasaki/aiueo/ai_coding_ws/stock-video-gender-convert/output/video/source_female_backup_female_best.mp4",
+    "prompt_id": null,
+    "api": "http://127.0.0.1:8188",
+    "sample_step": 2,
+    "detect_scale_factor": 1.08,
+    "detect_min_neighbors": 6,
+    "max_overlap_iou": 0.42,
+    "max_no_face_ratio": 0.2,
+    "max_multi_face_ratio": 0.1,
+    "max_face_drift_ratio": 0.12,
+    "min_face_area_ratio": 0.003,
+    "min_face_size_ratio": 0.001,
+    "min_detected_ratio": 0.75,
+    "min_mean_similarity": 0.55,
+    "min_mean_sharpness": 35.0,
+    "min_continuity_similarity": 0.45,
+    "max_face_switch_ratio": 0.12,
+    "max_face_jump_ratio": 0.16,
+    "check_gender": true,
+    "gender_prototxt": "/media/sasaki/aiueo/ai_coding_ws/stock-video-gender-convert/scripts/models/gender/gender_net_deploy.prototxt",
+    "gender_caffemodel": "/media/sasaki/aiueo/ai_coding_ws/stock-video-gender-convert/scripts/models/gender/gender_net.caffemodel",
+    "gender_prototxt_url": "https://raw.githubusercontent.com/GilLevi/AgeGenderDeepLearning/master/gender_net_definitions/deploy.prototxt",
+    "gender_caffemodel_url": "https://raw.githubusercontent.com/GilLevi/AgeGenderDeepLearning/master/models/gender_net.caffemodel",
+    "gender_mean_bgr": [
+      78.4263377603,
+      87.7689143744,
+      114.895847746
+    ],
+    "gender_female_min_ratio": 0.7,
+    "gender_female_confidence_threshold": 0.55,
+    "min_gender_frames": 4,
+    "face_strip_path": "/media/sasaki/aiueo/ai_coding_ws/stock-video-gender-convert/output/faces/source_female_backup_female_best_faces.jpg",
+    "max_face_strip_faces": 12,
+    "include_frame_debug": false,
+    "max_frame_debug_entries": 32,
+    "output_json": "/media/sasaki/aiueo/ai_coding_ws/stock-video-gender-convert/output/report/source_female_backup_female_best_report.json",
+    "fail_on_issue": false
+  },
+  "metrics": {
+    "detected_ratio": 0.34375,
+    "no_face_ratio": 0.65625,
+    "multi_face_ratio": 0.03125,
+    "drift_px_mean": 137.90439893868634,
+    "drift_px_p95": 203.13173065771875,
+    "drift_ratio_mean": 0.0962433991046688,
+    "drift_ratio_p95": 0.14176551563960677,
+    "face_area_ratio_mean": 0.0067387779124284805,
+    "face_area_ratio_std": 0.00856882498992055,
+    "face_similarity_mean": 0.9214091338818002,
+    "face_sharpness_mean": 2891.7442291198795,
+    "face_switch_ratio": 0.0,
+    "gender_female_ratio": 0.7272727272727273,
+    "gender_female_prob_mean": 0.725221315046538
+  },
+  "frame_summary": {
+    "sampled": 32,
+    "faces_detected": 11,
+    "no_face_frames": 21,
+    "multi_face_frames": 1,
+    "faces_too_small": 0,
+    "face_switch_count": 0,
+    "gender_evaluated_frames": 11
+  },
+  "checks": {
+    "detected_ratio": {
+      "value": 0.34375,
+      "ok": false,
+      "min": 0.75,
+      "max": 1.0
+    },
+    "no_face_ratio": {
+      "value": 0.65625,
+      "ok": false,
+      "min": 0.0,
+      "max": 0.2
+    },
+    "multi_face_ratio": {
+      "value": 0.03125,
+      "ok": true,
+      "min": 0.0,
+      "max": 0.1
+    },
+    "drift_ratio_mean": {
+      "value": 0.0962433991046688,
+      "ok": true,
+      "min": 0.0,
+      "max": 0.12
+    },
+    "drift_ratio_p95": {
+      "value": 0.14176551563960677,
+      "ok": true,
+      "min": 0.0,
+      "max": 0.18
+    },
+    "face_switch_ratio": {
+      "value": 0.0,
+      "ok": true,
+      "min": 0.0,
+      "max": 0.12
+    },
+    "face_area_ratio_mean": {
+      "value": 0.0067387779124284805,
+      "ok": true,
+      "min": 0.003,
+      "max": 1.0
+    },
+    "face_similarity_mean": {
+      "value": 0.9214091338818002,
+      "ok": true,
+      "min": 0.55,
+      "max": 1.0
+    },
+    "face_sharpness_mean": {
+      "value": 2891.7442291198795,
+      "ok": true,
+      "min": 35.0,
+      "max": Infinity
+    },
+    "gender_female_ratio": {
+      "value": 0.7272727272727273,
+      "ok": true,
+      "min": 0.7,
+      "max": 1.0
+    },
+    "gender_female_prob_mean": {
+      "value": 0.725221315046538,
+      "ok": true,
+      "min": 0.55,
+      "max": 1.0
+    },
+    "gender_evaluated_frames": {
+      "value": 11,
+      "ok": true,
+      "min": 4,
+      "max": Infinity
+    }
+  },
+  "issues": [
+    "detected_ratio out of range: 0.34375",
+    "no_face_ratio out of range: 0.65625"
+  ],
+  "artifacts": {
+    "face_strip_path": "/media/sasaki/aiueo/ai_coding_ws/stock-video-gender-convert/output/faces/source_female_backup_female_best_faces.jpg"
+  }
+}

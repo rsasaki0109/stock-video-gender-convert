@@ -1,0 +1,24 @@
+{
+  "basename": "source_male_8fps_prod_v1",
+  "source_video": "/media/sasaki/aiueo/ai_coding_ws/ComfyUI/input/source_male.mp4",
+  "output_video": "/media/sasaki/aiueo/ai_coding_ws/stock-video-gender-convert/output/video/source_male_8fps_prod_v1.mp4",
+  "generation_prompt_id": "fcb4d9ee-ecb4-413c-a03f-644202aec278",
+  "generation_started_at_ms": 1773040616529,
+  "generation_finished_at_ms": 1773041284280,
+  "generation_seconds": 667.751,
+  "qc_review_status": "approved_gpt_review",
+  "notes": [
+    "This is the first full-length 8-second production-style clip generated with the locked 704x1248 payload.",
+    "Automatic face continuity checks passed; GPT review approved despite borderline automatic gender metrics.",
+    "Publish-ready export created with burned captions and synthetic ambience.",
+    "Subtitle/SFX edit time recorded: 1.058s.",
+    "TikTok AI-generated content label is prepared in the upload metadata note."
+  ],
+  "edit_started_at_ms": 1773049735826,
+  "edit_finished_at_ms": 1773049736884,
+  "edit_seconds": 1.058,
+  "publish_ready_video": "/media/sasaki/aiueo/ai_coding_ws/stock-video-gender-convert/output/video/source_male_8fps_prod_v1_publish_ready.mp4",
+  "edit_note": "/media/sasaki/aiueo/ai_coding_ws/stock-video-gender-convert/output/publish/source_male_8fps_prod_v1_edit_note.md",
+  "upload_metadata_note": "/media/sasaki/aiueo/ai_coding_ws/stock-video-gender-convert/output/publish/source_male_8fps_prod_v1_upload_metadata.md",
+  "total_clip_completion_seconds": 9120.355
+}

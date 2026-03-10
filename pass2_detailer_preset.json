@@ -1,0 +1,44 @@
+{
+  "preset_name": "pass2_face_detailer_default",
+  "purpose": "Artifact repair for mouth, eyes, and short face drift after a PASS-grade Pass 1 output.",
+  "apply_when": [
+    "mouth_artifacts",
+    "eye_asymmetry",
+    "brief_face_drift",
+    "final_cut_hand_artifacts"
+  ],
+  "skip_when": [
+    "pass1_qc_failed",
+    "major_identity_collapse",
+    "gender_presentation_failed",
+    "global_style_failure"
+  ],
+  "defaults": {
+    "target_scope": "face_only",
+    "denoise": 0.28,
+    "cfg_delta_vs_pass1": -0.2,
+    "controlnet_weight_mode": "same_as_pass1",
+    "ipadapter_weight_delta_vs_pass1": 0.03
+  },
+  "tuning_rules": {
+    "face_drift": {
+      "denoise": 0.24,
+      "ipadapter_weight_delta_vs_pass1": 0.05
+    },
+    "mouth_warp": {
+      "denoise": 0.24,
+      "target_scope": "face_only"
+    },
+    "stiff_expression": {
+      "cfg_delta_vs_pass1": -0.4
+    },
+    "pose_collapse": {
+      "controlnet_weight_delta_vs_pass1": 0.05
+    }
+  },
+  "acceptance": {
+    "no_new_identity_drift": true,
+    "no_new_major_face_switch": true,
+    "target_artifact_reduced": true
+  }
+}

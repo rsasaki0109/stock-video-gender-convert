@@ -1,0 +1,14 @@
+{
+  "basename": "pass1_gptfix_final",
+  "source_video": "/media/sasaki/aiueo/ai_coding_ws/ComfyUI/input/source.mp4",
+  "output_video": "/media/sasaki/aiueo/ai_coding_ws/stock-video-gender-convert/output/video/pass1_gptfix_final.mp4",
+  "generation_prompt_id": "701d8272-ec32-483c-b9ac-cfccd69312f9",
+  "generation_started_at_ms": 1772774005801,
+  "generation_finished_at_ms": 1772774649251,
+  "generation_seconds": 643.45,
+  "qc_review_status": "approved_gpt_review",
+  "notes": [
+    "This approved variant shares the same generation prompt_id lineage as the accepted gptfix-final artifact set in the repo.",
+    "Subtitle and SFX edit time has not been recorded yet."
+  ]
+}

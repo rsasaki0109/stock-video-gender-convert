@@ -1,0 +1,225 @@
+{
+  "prompt": {
+    "1": {
+      "class_type": "VHS_LoadVideoPath",
+      "inputs": {
+        "video": "/media/sasaki/aiueo/ai_coding_ws/ComfyUI/input/source.mp4",
+        "force_rate": 24.0,
+        "custom_width": 0,
+        "custom_height": 0,
+        "frame_load_cap": 64,
+        "skip_first_frames": 0,
+        "select_every_nth": 1
+      }
+    },
+    "2": {
+      "class_type": "ResizeAndPadImage",
+      "inputs": {
+        "image": [
+          "1",
+          0
+        ],
+        "target_width": 704,
+        "target_height": 1248,
+        "padding_color": "black",
+        "interpolation": "lanczos"
+      }
+    },
+    "3": {
+      "class_type": "OpenposePreprocessor",
+      "inputs": {
+        "image": [
+          "2",
+          0
+        ],
+        "detect_hand": "enable",
+        "detect_body": "enable",
+        "detect_face": "enable",
+        "resolution": 384,
+        "scale_stick_for_xinsr_cn": "disable"
+      }
+    },
+    "4": {
+      "class_type": "ACN_ControlNetLoaderAdvanced",
+      "inputs": {
+        "cnet": "controlnet-openpose-sdxl.safetensors"
+      }
+    },
+    "5": {
+      "class_type": "ACN_AdvancedControlNetApply_v2",
+      "inputs": {
+        "positive": [
+          "7",
+          0
+        ],
+        "negative": [
+          "8",
+          0
+        ],
+        "control_net": [
+          "4",
+          0
+        ],
+        "image": [
+          "3",
+          0
+        ],
+        "strength": 0.68,
+        "start_percent": 0.0,
+        "end_percent": 1.0
+      }
+    },
+    "6": {
+      "class_type": "CheckpointLoaderSimple",
+      "inputs": {
+        "ckpt_name": "sdxl-base.safetensors"
+      }
+    },
+    "7": {
+      "class_type": "CLIPTextEncode",
+      "inputs": {
+        "text": "photorealistic young woman, natural skin texture, soft makeup, detailed eyes, realistic lighting, same pose, same framing, cinematic, feminine face, delicate eyes, beautiful young woman, close-up portrait, oval face, pretty eyes, long eyelashes, soft blush, lip tint, delicate jawline, smooth skin",
+        "clip": [
+          "16",
+          1
+        ]
+      }
+    },
+    "8": {
+      "class_type": "CLIPTextEncode",
+      "inputs": {
+        "text": "deformed face, bad anatomy, extra fingers, blurry, plastic skin, warped mouth, asymmetrical eyes, lowres, artifacts, male appearance, beard, stubble, beard shadow, masculine jawline, heavy brow, square jaw, thick neck, facial hair, sideburns, glasses",
+        "clip": [
+          "16",
+          1
+        ]
+      }
+    },
+    "9": {
+      "class_type": "LoadImage",
+      "inputs": {
+        "image": "/media/sasaki/aiueo/ai_coding_ws/stock-video-gender-convert/output/reference/pass1_best_ref.jpg"
+      }
+    },
+    "10": {
+      "class_type": "IPAdapterUnifiedLoader",
+      "inputs": {
+        "model": [
+          "16",
+          0
+        ],
+        "preset": "PLUS FACE (portraits)"
+      }
+    },
+    "11": {
+      "class_type": "IPAdapter",
+      "inputs": {
+        "model": [
+          "10",
+          0
+        ],
+        "ipadapter": [
+          "10",
+          1
+        ],
+        "image": [
+          "9",
+          0
+        ],
+        "weight": 0.55,
+        "start_at": 0.0,
+        "end_at": 1.0,
+        "weight_type": "standard"
+      }
+    },
+    "12": {
+      "class_type": "VAEEncode",
+      "inputs": {
+        "pixels": [
+          "2",
+          0
+        ],
+        "vae": [
+          "6",
+          2
+        ]
+      }
+    },
+    "13": {
+      "class_type": "KSampler",
+      "inputs": {
+        "model": [
+          "11",
+          0
+        ],
+        "seed": 1337,
+        "steps": 34,
+        "cfg": 8.5,
+        "sampler_name": "dpmpp_2m_sde",
+        "scheduler": "karras",
+        "positive": [
+          "5",
+          0
+        ],
+        "negative": [
+          "5",
+          1
+        ],
+        "latent_image": [
+          "12",
+          0
+        ],
+        "denoise": 0.64
+      }
+    },
+    "14": {
+      "class_type": "VAEDecode",
+      "inputs": {
+        "samples": [
+          "13",
+          0
+        ],
+        "vae": [
+          "6",
+          2
+        ]
+      }
+    },
+    "15": {
+      "class_type": "VHS_VideoCombine",
+      "inputs": {
+        "images": [
+          "14",
+          0
+        ],
+        "audio": [
+          "1",
+          2
+        ],
+        "frame_rate": 24.0,
+        "loop_count": 0,
+        "filename_prefix": "pass1_production",
+        "format": "video/h264-mp4",
+        "pingpong": false,
+        "save_output": true
+      }
+    },
+    "16": {
+      "class_type": "LoraLoader",
+      "inputs": {
+        "model": [
+          "6",
+          0
+        ],
+        "clip": [
+          "6",
+          1
+        ],
+        "lora_name": "LORA_FACE_CUTE.safetensors",
+        "strength_model": 1.3,
+        "strength_clip": 1.05
+      }
+    }
+  },
+  "client_id": "pass1-canonical"
+}

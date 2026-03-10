@@ -1,0 +1,18 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 704
+PlayResY: 1248
+WrapStyle: 2
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: TopLabel,Ubuntu Sans,23,&H00FFFFFF,&H000000FF,&H50000000,&H78000000,-1,0,0,0,100,100,0,0,3,1.5,0,8,48,48,54,1
+Style: BottomCard,Ubuntu Sans,31,&H00FFFFFF,&H000000FF,&H5A000000,&H8C000000,-1,0,0,0,100,100,0,0,3,1.5,0,2,58,58,92,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:08.00,TopLabel,,0,0,0,,AI-GENERATED RESTYLE
+Dialogue: 0,0:00:00.00,0:00:02.67,BottomCard,,0,0,0,,AI-generated restyle demo
+Dialogue: 0,0:00:02.67,0:00:05.33,BottomCard,,0,0,0,,Licensed stock footage + AI edit
+Dialogue: 0,0:00:05.33,0:00:08.00,BottomCard,,0,0,0,,Visual transformation only
