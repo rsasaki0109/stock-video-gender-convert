@@ -15,21 +15,33 @@ Internal workflow repo for converting stock-footage people videos with AI gender
 
 ### Clip 1
 
+Preview GIF: `output/review/source_male_8fps_prod_v1_preview.gif`
+
+Full video: `output/video/source_male_8fps_prod_v1_publish_ready.mp4`
+
 Review board: `output/review/source_male_8fps_prod_v1_review_board.jpg`
 
-![Clip 1 review board](output/review/source_male_8fps_prod_v1_review_board.jpg)
+![Clip 1 preview](output/review/source_male_8fps_prod_v1_preview.gif)
 
 ### Clip 2
 
+Preview GIF: `output/review/source_seg26_8fps_prod_v2_preview.gif`
+
+Full video: `output/video/source_seg26_8fps_prod_v2_publish_ready.mp4`
+
 Review board: `output/review/source_seg26_8fps_prod_v2_review_board.jpg`
 
-![Clip 2 review board](output/review/source_seg26_8fps_prod_v2_review_board.jpg)
+![Clip 2 preview](output/review/source_seg26_8fps_prod_v2_preview.gif)
 
 ### Clip 3
 
+Preview GIF: `output/review/source_seg53_8fps_prod_v3_preview.gif`
+
+Full video: `output/video/source_seg53_8fps_prod_v3_publish_ready.mp4`
+
 Review board: `output/review/source_seg53_8fps_prod_v3_review_board.jpg`
 
-![Clip 3 review board](output/review/source_seg53_8fps_prod_v3_review_board.jpg)
+![Clip 3 preview](output/review/source_seg53_8fps_prod_v3_preview.gif)
 
 ## Japanese early-20s probe
 
@@ -38,20 +50,25 @@ Review board: `output/review/source_seg53_8fps_prod_v3_review_board.jpg`
   - used to bootstrap a tighter face reference from a successful transformed frame
 - Improved bootstrap reference:
   - `output/reference/jp_early20s_bootstrap_ref.png`
-- Current probe output:
+- Beauty-leaning bootstrap probe:
   - `output/video/source_jp_early20s_bootstrap_probe.mp4`
-- Current probe review board:
+- Beauty-leaning bootstrap review board:
   - `output/review/source_jp_early20s_bootstrap_probe_review_board.jpg`
-- This is still a cheap internal probe (`16` frames at `576x1024`) for a Japanese / early-20s visual direction.
+- Latest cute-leaning variant:
+  - `output/video/source_jp_cute_probe.mp4`
+  - `output/review/source_jp_cute_probe_preview.gif`
+  - `output/review/source_jp_cute_probe_review_board.jpg`
+- Both are cheap internal probes (`16` frames at `576x1024`) for a Japanese / early-20s visual direction.
 - Auto metrics:
-  - `female_ratio=1.000`
-  - `female_prob_mean=0.897`
+  - bootstrap probe: `female_ratio=1.000`, `female_prob_mean=0.897`
+  - cute probe: `female_ratio=0.875`, `female_prob_mean=0.768`
   - `face_similarity_mean=0.987`
 - Current result: `pending_gpt_review`
-  - the main target metrics now pass
-  - the remaining QC issue is a conservative `multi_face_ratio=0.125`
+  - the cute probe is the current preferred style direction
+  - it passes the main auto-gate thresholds with no listed QC issues
+  - the earlier bootstrap probe remains useful as a stronger femininity baseline
 
-![Japanese early-20s bootstrap probe review board](output/review/source_jp_early20s_bootstrap_probe_review_board.jpg)
+![Japanese early-20s cute probe preview](output/review/source_jp_cute_probe_preview.gif)
 
 ## Source provenance note
 
